@@ -1,11 +1,5 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
 import { User } from 'src/users/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Report {
@@ -36,10 +30,6 @@ export class Report {
   @Column({ default: false })
   approved: boolean;
 
-  @Column()
-  userId: number;
-
   @ManyToOne(() => User, (user) => user.reports)
-  @JoinColumn({ name: 'userId' })
   user: User;
 }
