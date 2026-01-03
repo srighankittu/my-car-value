@@ -9,6 +9,7 @@ import { Report } from './reports/report.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MiddlewareConsumer } from '@nestjs/common';
 import cookieSession from 'cookie-session';
+import { currentUserMiddleware } from './users/middlewares/current-user.middleware';
 
 @Module({
   imports: [
@@ -40,7 +41,7 @@ import cookieSession from 'cookie-session';
           type: 'sqlite',
           database: config.get<string>('DB_NAME') || 'db.sqlite',
           entities: [User, Report],
-          synchronize: false,
+          synchronize: true,
         };
       },
     }),
@@ -64,6 +65,7 @@ export class AppModule {
         cookieSession({
           keys: [this.configService.get('COOKIE_KEY') || ''],
         }),
+        currentUserMiddleware,
       )
       .forRoutes('*');
   }
