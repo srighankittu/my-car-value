@@ -32,7 +32,7 @@ import cookieSession from 'cookie-session';
             password: config.get<string>('DB_PASSWORD'),
             database: config.get<string>('DB_NAME'),
             entities: [User, Report],
-            synchronize: false,
+            synchronize: true,
           };
         }
 
