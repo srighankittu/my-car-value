@@ -1,11 +1,11 @@
-import { User } from 'src/users/user.entity';
 import {
-  AfterInsert,
-  Column,
   Entity,
-  ManyToOne,
+  Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { User } from 'src/users/user.entity';
 
 @Entity()
 export class Report {
@@ -14,9 +14,6 @@ export class Report {
 
   @Column()
   price: number;
-
-  @Column({ default: false })
-  approved: boolean;
 
   @Column()
   make: string;
@@ -36,11 +33,13 @@ export class Report {
   @Column()
   milage: string;
 
-  @ManyToOne(() => User, (user) => user.reports)
-  user: User;
+  @Column({ default: false })
+  approved: boolean;
 
-  @AfterInsert()
-  logInsert() {
-    console.log('New Report Inserted');
-  }
+  @Column()
+  userId: number;
+
+  @ManyToOne(() => User, (user) => user.reports)
+  @JoinColumn({ name: 'userId' })
+  user: User;
 }
