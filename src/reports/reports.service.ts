@@ -23,6 +23,9 @@ export class ReportsService {
     });
   }
 
+  getReports() {
+    return this.repo.find({});
+  }
   async changeApproval(id: number, approved: boolean) {
     const report = await this.repo.findOne({
       where: {
