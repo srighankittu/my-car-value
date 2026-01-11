@@ -41,6 +41,7 @@ export class ReportsController {
   }
 
   @Get('/all-reports')
+  @UseGuards(AuthGuard)
   getAllReports() {
     return this.reportsService.getReports();
   }
